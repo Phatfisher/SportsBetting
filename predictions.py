@@ -32,8 +32,8 @@ def predict(teams:list):
 	return [team1_poss_prediction, team1_offEff_prediction, team2_poss_prediction, team2_offEff_prediction]
 
 # Creates a list of stats for a given team. Uses format from championship_teams_stats.txt
-def getTeamStats():
-	team = f.readline()
+def getTeamStats(file):
+	team = file.readline()
 
 	team = team.split(', ')
 	team[len(team) - 1] = team[len(team) - 1].split('\n')[0]
@@ -51,8 +51,8 @@ if __name__ == '__main__':
 	# ----------
 
 	# Championship Teams
-	team1 = getTeamStats()
-	team2 = getTeamStats()
+	team1 = getTeamStats(f)
+	team2 = getTeamStats(f)
 
 	# blank line
 	f.readline()
@@ -60,8 +60,8 @@ if __name__ == '__main__':
 	# ----------
 
 	# Stats from opposing teams
-	opp_team1 = getTeamStats()
-	opp_team2 = getTeamStats()
+	opp_team1 = getTeamStats(f)
+	opp_team2 = getTeamStats(f)
 
 	# Gives 4 scores, 2 for each team:
 	# Possesion Prediction (index: 0, 2), Offensive Effeciency Prediction (index: 1, 3)
@@ -71,3 +71,8 @@ if __name__ == '__main__':
 	team1_revised_scores = (predicted_scores[0] + predicted_scores[1]) / 2
 	team2_revised_scores = (predicted_scores[2] + predicted_scores[3]) / 2
 	print(f'{team1[0]}: {round(team1_revised_scores)}\n{team2[0]}: {round(team2_revised_scores)}')
+	
+	if team1_revised_scores > team2_revised_scores:
+		print(f'WINNER: {team1[0]}')
+	else:
+		print(f'WINNER: {team2[0]}')
