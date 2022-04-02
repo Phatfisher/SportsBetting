@@ -9,7 +9,7 @@ team2 = 'Villanova'
 from datetime import datetime
 from sportsipy.ncaab.boxscore import Boxscores, Boxscore
 
-# averages a list
+# Averages number in a given list.
 def average(list_to_average:list):
 	revised_list = []
 	for i in list_to_average:
@@ -18,7 +18,7 @@ def average(list_to_average:list):
 
 	return round((sum(revised_list) / len(revised_list)), 2)
 
-# gets the stats of a given team
+# Gets the stats of a given team using games in a time range.
 def team_stats(team:str):
 	points = []
 	assists = []
@@ -100,6 +100,7 @@ def team_stats(team:str):
 		average(minutes_played),
 		average(pace)]
 
+# Gets the opposing stats of a given team using games in a time range.
 def opp_team_stats(team:str):
 	points = []
 	assists = []
@@ -181,7 +182,7 @@ def opp_team_stats(team:str):
 		average(minutes_played),
 		average(pace)]
 
-# writes a list to a file
+# Writes a list to a file.
 def write(to_write:list):
 	for i in to_write:
 		if i == to_write[len(to_write) - 1]:
@@ -194,9 +195,10 @@ def write(to_write:list):
 if __name__ == '__main__':
 
 	print('Getting games')
+	# Gets games between the start of March Madness and the project due date.
 	games = Boxscores(datetime(2022, 3, 18), datetime(2022, 4, 4))
 
-	# opens championship_teams_stats.txt to be written in
+	# Opens championship_teams_stats.txt to be written in.
 	f = open('championship_teams_stats.txt', 'w')
 
 	print('Writing to file')
