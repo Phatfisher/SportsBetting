@@ -1,34 +1,23 @@
+### Determines the plus and minus lines based on the predicted score of a game.
+### Uses the 'predicted_scores' list from predictions.py as the scores.
+### Favorites are determined by the winner using predicted score.
+
 from predictions import *
+
+def plus_minus():
+	# Determining the PLUS and MINUS lines.
+	# Uses the difference of predicted team scores.
+	team1_plus_minus = abs(predicted_scores[0] - predicted_scores[1])
+	team2_plus_minus = abs(predicted_scores[2] - predicted_scores[3])
+	# Then sum the differences and floors by 2.
+	plus_minus = (team1_plus_minus + team2_plus_minus) // 2
+
+	return plus_minus
+
 
 if __name__ == '__main__':
 
-	f = open('championship_teams_stats.txt', 'r')
-	# blank line
-	f.readline()
-	# ----------
-
-	# Championship Teams
-	team1 = getTeamStats(f)
-	team2 = getTeamStats(f)
-
-	# blank line
-	f.readline()
-	f.readline()
-	# ----------
-
-	# Stats from opposing teams
-	opp_team1 = getTeamStats(f)
-	opp_team2 = getTeamStats(f)
-
-	# Gives 4 scores, 2 for each team:
-	# Possesion Prediction (index: 0, 2), Offensive Effeciency Prediction (index: 1, 3)
-	predicted_scores = predict([team1, team2, opp_team1, opp_team2])
-
-
-	# Determining the PLUS and MINUS lines.
-	team1_plus_minus = abs(predicted_scores[0] - predicted_scores[1])
-	team2_plus_minus = abs(predicted_scores[2] - predicted_scores[3])
-	plus_minus = (team1_plus_minus + team2_plus_minus) // 2
+	plus_minus = plus_minus()
 
 	# Score Prediction
 	team1_revised_scores = (predicted_scores[0] + predicted_scores[1]) / 2
@@ -43,3 +32,5 @@ if __name__ == '__main__':
 	print('PLUS AND MINUS LINES:')
 	if favorite == team1[0]:
 		print(f'{team1[0]:20s}: -{round(plus_minus)}\n{team2[0]:20s}: +{round(plus_minus)}')
+	else:
+		print(f'{team1[0]:20s}: +{round(plus_minus)}\n{team2[0]:20s}: -{round(plus_minus)}')

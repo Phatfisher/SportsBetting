@@ -1,6 +1,6 @@
-
-#plus/minus
-#unskilled
+### Predicts the scores of a game given stats from the championship_teams_stats.txt file.
+### There are a few global variables to use in other files.
+### Running the program only outputs the scores, no arguments needed.
 
 # D1 Averages
 d1_offE_avg = 103.8
@@ -43,36 +43,43 @@ def getTeamStats(file):
 	return team
 
 
-if __name__ == '__main__':
+# --- Global Variables for Other Files ------------------------------------------------------------
+f = open('championship_teams_stats.txt', 'r')
+# blank line
+f.readline()
+# ----------
 
-	f = open('championship_teams_stats.txt', 'r')
-	# blank line
-	f.readline()
-	# ----------
+# Championship Teams
+team1 = getTeamStats(f)
+team2 = getTeamStats(f)
 
-	# Championship Teams
-	team1 = getTeamStats(f)
-	team2 = getTeamStats(f)
+# blank line
+f.readline()
+f.readline()
+# ----------
 
-	# blank line
-	f.readline()
-	f.readline()
-	# ----------
+# Stats from opposing teams
+opp_team1 = getTeamStats(f)
+opp_team2 = getTeamStats(f)
+f.close()
 
-	# Stats from opposing teams
-	opp_team1 = getTeamStats(f)
-	opp_team2 = getTeamStats(f)
+# Gives 4 scores, 2 for each team:
+# Possesion Prediction (index: 0, 2), Offensive Effeciency Prediction (index: 1, 3)
+predicted_scores = predict([team1, team2, opp_team1, opp_team2])
+# -------------------------------------------------------------------------------------------------
 
-	# Gives 4 scores, 2 for each team:
-	# Possesion Prediction (index: 0, 2), Offensive Effeciency Prediction (index: 1, 3)
-	predicted_scores = predict([team1, team2, opp_team1, opp_team2])
-
+def scores():
 	# These are the predicted scores for each team.
 	team1_revised_scores = (predicted_scores[0] + predicted_scores[1]) / 2
 	team2_revised_scores = (predicted_scores[2] + predicted_scores[3]) / 2
-	print(f'{team1[0]}: {round(team1_revised_scores)}\n{team2[0]}: {round(team2_revised_scores)}')
+	print(f'{team1[0]:20s}: {round(team1_revised_scores)}\n{team2[0]:20s}: {round(team2_revised_scores)}')
 	
 	if team1_revised_scores > team2_revised_scores:
 		print(f'WINNER: {team1[0]}')
 	else:
 		print(f'WINNER: {team2[0]}')
+
+
+if __name__ == '__main__':
+
+	scores()

@@ -209,4 +209,6 @@ if __name__ == '__main__':
 	write(opp_team_stats(team1))
 	print('First team done')
 	write(opp_team_stats(team2))
-	print('Second team done\nFile is completed')
+	print('Second team done')
+	f.close()
+	print('File is completed')
