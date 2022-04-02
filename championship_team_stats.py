@@ -5,9 +5,11 @@ team2 = 'Villanova'
 ### Gets boxscores of NCAAB games from March 18th, 2022 to April 4th, 2022.
 ### The program then write averages of important stats of the March Madness
 ### tournament to a text file.
+### Can use command line arguments for teams (has to be correct spelling).
 
 from datetime import datetime
 from sportsipy.ncaab.boxscore import Boxscores, Boxscore
+import sys
 
 # Averages number in a given list.
 def average(list_to_average:list):
@@ -193,6 +195,13 @@ def write(to_write:list):
 
 
 if __name__ == '__main__':
+
+	try:
+		if sys.argv[1] != None and sys.argv[2] != None:
+			team1 = sys.argv[1]
+			team2 = sys.argv[2]
+	except:
+		pass
 
 	print('Getting games')
 	# Gets games between the start of March Madness and the project due date.
