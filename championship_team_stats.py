@@ -1,5 +1,5 @@
-team1 = 'Duke'
-team2 = 'Villanova'
+team1 = 'UNC'
+team2 = 'Kansas'
 
 ### Change the teams above to get stats of wanted teams.
 ### Gets boxscores of NCAAB games from March 18th, 2022 to April 4th, 2022.
